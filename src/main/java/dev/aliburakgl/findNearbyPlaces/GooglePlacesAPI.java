@@ -1,23 +1,24 @@
 package dev.aliburakgl.findNearbyPlaces;
 
 import dev.aliburakgl.findNearbyPlaces.converter.Converter;
-import dev.aliburakgl.findNearbyPlaces.dto.Result;
+import dev.aliburakgl.findNearbyPlaces.dto.Root;
 import lombok.NoArgsConstructor;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 @NoArgsConstructor
-public class PlacesAPI {
-    public static String  main() {
+public class GooglePlacesAPI {
+    public static String  main(String lat, String lut, String radius) {
         try {
             String apiKey = "AIzaSyBOxTyi-rGThBKcFYdrVdbU8fDVIvqsVYk";
             String baseUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
-            String location = "41.0082,28.9784";
-            String radius = "1000";
+            StringBuilder location = new StringBuilder();
+            location.append(lat);
+            location.append(",");
+            location.append(lut);
             String type = "restaurant";
 
             String urlString = String.format("%s?location=%s&radius=%s&type=%s&key=%s", baseUrl, location, radius, type, apiKey);
@@ -32,12 +33,9 @@ public class PlacesAPI {
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
+            Root root = Converter.convertJsonToRoot(response.toString());
+
             in.close();
-            ArrayList<Result> results = Converter.convertJsonToResults(response.toString());
-            results.stream()
-                    .map(result -> result.name)
-                    .forEach(System.out::println);
-            System.out.println(response.toString());
             return response.toString();
         } catch (Exception e) {
             e.printStackTrace();

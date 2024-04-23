@@ -16,15 +16,5 @@ public class Converter {
             return null;
         }
     }
-
-    public static ArrayList<Result> convertJsonToResults(String jsonString) {
-        try {
-            Root root = objectMapper.readValue(jsonString, Root.class);
-            return root.results;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }
 
