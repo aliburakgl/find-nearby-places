@@ -1,9 +1,6 @@
-package dev.aliburakgl.findNearbyPlaces;
+package dev.aliburakgl.findNearbyPlaces.api;
 
-import dev.aliburakgl.findNearbyPlaces.converter.Converter;
-import dev.aliburakgl.findNearbyPlaces.dto.Root;
 import lombok.NoArgsConstructor;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -33,8 +30,6 @@ public class GooglePlacesAPI {
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
-            Root root = Converter.convertJsonToRoot(response.toString());
-
             in.close();
             return response.toString();
         } catch (Exception e) {

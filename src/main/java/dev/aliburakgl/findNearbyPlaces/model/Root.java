@@ -1,15 +1,9 @@
-package dev.aliburakgl.findNearbyPlaces.dto;
+package dev.aliburakgl.findNearbyPlaces.model;
 
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.*;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 
 import java.util.ArrayList;

@@ -1,7 +1,6 @@
-package dev.aliburakgl.findNearbyPlaces;
+package dev.aliburakgl.findNearbyPlaces.repository;
 
-import dev.aliburakgl.findNearbyPlaces.dto.Result;
-import dev.aliburakgl.findNearbyPlaces.dto.Root;
+import dev.aliburakgl.findNearbyPlaces.model.Root;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
