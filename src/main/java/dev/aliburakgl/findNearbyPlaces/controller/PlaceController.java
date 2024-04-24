@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/places")
 @CrossOrigin
-public class PlacesController {
+public class PlaceController {
     @Autowired
     private PlaceService placeService;
     @GetMapping("/get")
