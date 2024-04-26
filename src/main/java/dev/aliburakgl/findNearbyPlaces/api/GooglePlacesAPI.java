@@ -1,21 +1,24 @@
 package dev.aliburakgl.findNearbyPlaces.api;
 
 import dev.aliburakgl.findNearbyPlaces.provider.PlacesProvider;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Properties;
+
 
 @Service
 public class GooglePlacesAPI implements PlacesProvider {
     private static final Logger logger = LogManager.getLogger(GooglePlacesAPI.class);
+    @Value("${google.api.key}")
+    private  String apiKey;
 
     @Override
     public String getNearbyPlaces(String latitude, String longitude, String radius) {
@@ -23,7 +26,6 @@ public class GooglePlacesAPI implements PlacesProvider {
                 latitude.isEmpty() || longitude.isEmpty() || radius.isEmpty()) {
             throw new IllegalArgumentException("Invalid input parameters");
         }
-       String apiKey = getApiKey();
         String baseUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
         StringBuilder location = new StringBuilder();
         location.append(latitude);
@@ -61,19 +63,4 @@ public class GooglePlacesAPI implements PlacesProvider {
         }
     }
 
-    private String getApiKey(){
-        String apiKey;
-            try {
-                InputStreamReader reader = new InputStreamReader(new FileInputStream(".env"));
-                Properties props = new Properties();
-                props.load(reader);
-                apiKey = props.getProperty("API_KEY");
-                logger.info("API key successfully loaded from .env file");
-            }
-                catch (IOException e) {
-                    logger.error("Error loading .env file: {}", e.getMessage());
-                throw new RuntimeException(e);
-            }
-            return apiKey;
-        }
 }
